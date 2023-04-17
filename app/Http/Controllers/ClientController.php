@@ -14,6 +14,17 @@ class ClientController extends Controller
     {
         //
         $clients = Client::all();
+        $array = [];
+        foreach ($clients as $client){
+            $array[] = [
+                'id' => $client->id,
+                'name' =>$client->name,
+                'email' =>$client->email,
+                'phone' =>$client->phone,
+                'address' =>$client->address,
+                'services' =>$client->services
+            ];
+        }
         return response()->json($clients);
         
     }
@@ -51,6 +62,11 @@ class ClientController extends Controller
     public function show(Client $client)
     {
         //
+        $data = [
+            'message' => 'Client details',
+            'client' => $client,
+            'services' => $client->services
+        ];
         return response()->json($client);
 
     }
@@ -94,4 +110,38 @@ class ClientController extends Controller
         ];
         return response()->json($data);
     }
+
+    public function attach(Request $request){
+
+        $client = Client::find($request->client_id);
+        $client->services()->attach($request->service_id);
+        $data = [
+            'message' => 'Service attached successfelly',
+            'client' => $client
+        ];
+        return response()->json($data);
+    }
+    
+    public function detach(Request $request){
+        $client = Client::find($request->client_id);
+        $client->services()->detach($request->service_id);
+        $data = [
+            'message' => 'Service attached successfelly',
+            'client' => $client
+        ];
+        return response()->json($data);
+    }
+
+/*
+Este es un método en un controlador de Laravel que se llama attach() y está diseñado para adjuntar un servicio a un cliente específico. La idea general de este método es encontrar el cliente por su ID, adjuntar un servicio al cliente usando el método attach() de la relación de servicios del modelo Client, y devolver una respuesta JSON con un mensaje de éxito y el cliente actualizado.
+
+Aquí hay una explicación línea por línea de lo que hace este método:
+
+$client = Client::find($request->client_id); encuentra un objeto de modelo Client en la base de datos por su ID proporcionado en la solicitud HTTP y lo asigna a la variable $client.
+$client->services()->attach($request->service_id); utiliza el método attach() de la relación de servicios del modelo Client para adjuntar un servicio al cliente. El ID del servicio se obtiene de la solicitud HTTP con el nombre de campo service_id.
+$data = [...] crea un arreglo asociativo $data que contiene un mensaje de éxito y el cliente actualizado. Este arreglo se utilizará para enviar una respuesta JSON.
+return response()->json($data); devuelve una respuesta JSON con el arreglo $data como cuerpo de la respuesta.
+En resumen, este método encuentra un cliente por su ID, adjunta un servicio al cliente y devuelve una respuesta JSON con un mensaje de éxito y el cliente actualizado.
+*/
+
 }
