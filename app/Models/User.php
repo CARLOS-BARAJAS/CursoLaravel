@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+// use App\Models\Profile; en casopida retornar la clase(Profile::class);
 
 class User extends Authenticatable
 {
@@ -41,4 +42,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function profile(){
+
+        // $profile = Profile::where('user_id', $this->id)->first(); es lo mismo
+        // en caso no le pongas nombre user_id se debe especificar el campo a referencia 
+        //, 'App\Models\Profile', foreing_key, local_key seria nombre de la llave primaria
+        //RELACION ONE ON ONE
+        return $this->hasOne('App\Models\Profile');
+    }
+
+
 }
