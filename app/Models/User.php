@@ -50,6 +50,19 @@ class User extends Authenticatable
         //, 'App\Models\Profile', foreing_key, local_key seria nombre de la llave primaria
         //RELACION ONE ON ONE
         return $this->hasOne('App\Models\Profile');
+
+    }
+
+    // Relacion uno a muchos a nivel de eloke
+
+    public function posts(){
+
+        return $this->hasMany('App\Models\Post');
+    }
+
+    public function videos(){
+
+        return $this->hasMany('App\Models\Videos');
     }
 
 
