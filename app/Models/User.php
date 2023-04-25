@@ -66,4 +66,12 @@ class User extends Authenticatable
     }
 
 
+    //Relacion muchos a muchos
+
+    public function roles(){
+     //$user->roles()->attach(1); para adjuntarle un rola a un usario en tinker
+        return $this->belongsToMany('App\Models\Role');
+    }
+
+
 }
