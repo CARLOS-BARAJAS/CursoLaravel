@@ -72,6 +72,13 @@ class User extends Authenticatable
      //$user->roles()->attach(1); para adjuntarle un rola a un usario en tinker
         return $this->belongsToMany('App\Models\Role');
     }
+    //$user->roles()->attach([1, 2, 3]); 
+    // $user->roles()->detach([1, 2, 3]);
+    // $user->roles()->sync([1, 2]); sincroniza sync roles creados
 
-
+    //relacion uno a uno polimorfica
+    public function image(){ // recuperar la imagen
+        return $this->morphOne('App\Models\Image','imageable'); // relacion one a one es morpOne
+    // se pasar dos parametros la url donde se encuentra el modelo y el metodo que se conectar para recuperar los registros
+    }
 }

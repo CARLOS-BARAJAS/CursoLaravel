@@ -18,4 +18,12 @@ class Post extends Model
 
         return $this->belongsTo('App\Models\Categoria');
     }
+
+    //relacion uno a uno polimorfica
+
+    public function image(){ // recuperar la imagen
+        return $this->morphOne('App\Models\Image','imageable'); // relacion one a one es morpOne
+    // se pasar dos parametros la url donde se encuentra el modelo y el metodo que se conectar para recuperar los registros
+    }
+
 }
