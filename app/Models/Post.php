@@ -26,4 +26,10 @@ class Post extends Model
     // se pasar dos parametros la url donde se encuentra el modelo y el metodo que se conectar para recuperar los registros
     }
 
+    //relacion uno a muchos polimorfica
+
+    public function comments(){
+        return $this->morphMany('App\Models\Comment', 'commentable');
+
+    }
 }
